@@ -1,0 +1,173 @@
+{
+  "assumptions": {
+    "price": 220.0,
+    "margin": 0.18,
+    "goodwill": 15.0,
+    "cost_under_per_unit": 54.6,
+    "cost_hold_per_unit_day": 0.489,
+    "stores": 150,
+    "test_days": 184
+  },
+  "policies": {
+    "A": {
+      "name": "A. Current rule: 7-day avg x (1+b)",
+      "param": 0.75,
+      "fill_rate_%": 100.0,
+      "stockout_days": 0,
+      "lost_units": 0.0,
+      "avg_closing_stock": 39.38,
+      "avg_opening_stock": 91.61,
+      "cost_lost_sales": 0.0,
+      "cost_holding": 3542.55,
+      "total_cost": 3542.55
+    },
+    "B": {
+      "name": "B. SARIMAX + k x RMSE buffer",
+      "param": 3.0,
+      "fill_rate_%": 99.94,
+      "stockout_days": 1,
+      "lost_units": 6.0,
+      "avg_closing_stock": 23.67,
+      "avg_opening_stock": 75.88,
+      "cost_lost_sales": 327.6,
+      "cost_holding": 2129.93,
+      "total_cost": 2457.53,
+      "saving_vs_A_test_period": 1085.0,
+      "saving_vs_A_per_store_year": 2152.0,
+      "saving_vs_A_chain_year": 322852.0,
+      "saving_vs_A25_per_store_year": 19157.0,
+      "inventory_change_vs_A_%": -39.9
+    },
+    "B0": {
+      "name": "B. SARIMAX (no buffer)",
+      "param": 0.0,
+      "fill_rate_%": 91.34,
+      "stockout_days": 96,
+      "lost_units": 832.0,
+      "avg_closing_stock": 2.79,
+      "avg_opening_stock": 50.51,
+      "cost_lost_sales": 45427.2,
+      "cost_holding": 250.84,
+      "total_cost": 45678.04
+    },
+    "C": {
+      "name": "C. LSTM + k x RMSE buffer",
+      "param": 3.1,
+      "fill_rate_%": 99.93,
+      "stockout_days": 1,
+      "lost_units": 7.0,
+      "avg_closing_stock": 23.28,
+      "avg_opening_stock": 75.48,
+      "cost_lost_sales": 382.2,
+      "cost_holding": 2094.23,
+      "total_cost": 2476.43,
+      "saving_vs_A_test_period": 1066.0,
+      "saving_vs_A_per_store_year": 2115.0,
+      "saving_vs_A_chain_year": 317229.0,
+      "saving_vs_A25_per_store_year": 19120.0,
+      "inventory_change_vs_A_%": -40.9
+    },
+    "C0": {
+      "name": "C. LSTM (no buffer)",
+      "param": 0.0,
+      "fill_rate_%": 89.46,
+      "stockout_days": 114,
+      "lost_units": 1013.0,
+      "avg_closing_stock": 2.45,
+      "avg_opening_stock": 49.18,
+      "cost_lost_sales": 55309.8,
+      "cost_holding": 220.03,
+      "total_cost": 55529.83
+    },
+    "D": {
+      "name": "D. Quantile LSTM (97.5% upper bound)",
+      "param": 6.0,
+      "fill_rate_%": 99.85,
+      "stockout_days": 2,
+      "lost_units": 14.0,
+      "avg_closing_stock": 25.6,
+      "avg_opening_stock": 77.77,
+      "cost_lost_sales": 764.4,
+      "cost_holding": 2303.51,
+      "total_cost": 3067.91,
+      "saving_vs_A_test_period": 475.0,
+      "saving_vs_A_per_store_year": 942.0,
+      "saving_vs_A_chain_year": 141231.0,
+      "saving_vs_A25_per_store_year": 17946.0,
+      "inventory_change_vs_A_%": -35.0
+    },
+    "A25": {
+      "name": "A'. Rule of thumb as practised: 7-day avg x 1.25",
+      "param": 0.25,
+      "fill_rate_%": 97.94,
+      "stockout_days": 26,
+      "lost_units": 198.0,
+      "avg_closing_stock": 14.49,
+      "avg_opening_stock": 65.66,
+      "cost_lost_sales": 10810.8,
+      "cost_holding": 1304.07,
+      "total_cost": 12114.87
+    }
+  },
+  "frontier": {},
+  "sensitivity_holding_cost": {
+    "hold_0.25": {
+      "B_vs_A": 994.0,
+      "D_vs_A": 875.0
+    },
+    "hold_0.5": {
+      "B_vs_A": 2216.0,
+      "D_vs_A": 997.0
+    },
+    "hold_1.0": {
+      "B_vs_A": 3601.0,
+      "D_vs_A": -419.0
+    },
+    "hold_2.0": {
+      "B_vs_A": 6245.0,
+      "D_vs_A": 151.0
+    }
+  },
+  "risk": {
+    "days_demand_above_upper": 11,
+    "breach_dates": [
+      "2025-07-04",
+      "2025-07-05",
+      "2025-07-14",
+      "2025-07-19",
+      "2025-08-16",
+      "2025-08-31",
+      "2025-09-20",
+      "2025-10-18",
+      "2025-10-19",
+      "2025-12-13",
+      "2025-12-27"
+    ],
+    "breach_in_aug": 2,
+    "breach_in_pre_diwali_2025": 2,
+    "max_daily_shortfall_units": 7.0,
+    "expected_daily_shortfall_cost": 4.15,
+    "worst_day_cost": 382.2,
+    "lower_bound_use": "q2.5 used as a floor: if opening stock falls below q2.5, trigger emergency top-up",
+    "bias_-20%": {
+      "fill_rate_%": 97.38,
+      "stockout_days": 36,
+      "total_cost": 14787.49
+    },
+    "bias_-10%": {
+      "fill_rate_%": 99.27,
+      "stockout_days": 13,
+      "total_cost": 5459.05
+    },
+    "bias_10%": {
+      "fill_rate_%": 100.0,
+      "stockout_days": 0,
+      "total_cost": 2992.46
+    },
+    "annual_saving_per_store_P5_P50_P95": [
+      -1106.0,
+      1021.0,
+      2571.0
+    ]
+  }
+}

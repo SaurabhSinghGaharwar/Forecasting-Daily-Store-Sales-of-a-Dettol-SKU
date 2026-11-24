@@ -1,0 +1,6 @@
+numpy
+pandas
+matplotlib
+statsmodels>=0.14
+scikit-learn
+torch>=2.0
